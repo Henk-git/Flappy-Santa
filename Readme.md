@@ -14,7 +14,6 @@ Flappy Santa challenges players to navigate Santa Claus through a series of obst
 
 ## 🛠 Tech Stack
 * **Language:** Java
-* **Libraries:** Java Swing, AWT
 * **IDE:** IntelliJ IDEA
 * **Version Control:** Git
 
