@@ -60,6 +60,11 @@ public class Santa {
     }
 
 
+    //Setter
+    public void setY(float y) {
+        this.y = y;
+    }
+
     //Getter
     public float getX() {
         return x;

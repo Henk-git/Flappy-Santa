@@ -51,14 +51,44 @@ public class CandyCane {
 
     //Rechteck Collum erstellen mit Gameconfig größen
     public void draw() {
-        Rectangle topRect = new Rectangle(x, 0, width, (int) gapY, Colors.RED);
-        topRect.draw();
+        drawCane(x, 0, width, (int) gapY, true);
 
         float bottomY = gapY + gapSize;
         float bottomHeight = GameConfig.WINDOW_HEIGHT - bottomY;
+        drawCane(x, (int) bottomY, width, (int) bottomHeight, false);
+    }
 
-        Rectangle bottomRect = new Rectangle(x, (int) bottomY, width, (int) bottomHeight, Colors.RED);
-        bottomRect.draw();
+    private void drawCane(float x, float y, int width, int height, boolean isTop) {
+        // 1. Hintergrund / Grundfarbe
+        Rectangle base = new Rectangle(x, y, width, height, Colors.RED);
+        base.draw();
+
+        // 2. Weisse Streifen zeichnen
+        int stripeHeight = 25;
+        for (int currY = 0; currY < height; currY += stripeHeight * 2) {
+            int h1 = Math.min(stripeHeight, height - currY);
+            if (h1 > 0) {
+                Rectangle stripe = new Rectangle(x, y + currY, width, h1, Colors.WHITE);
+                stripe.draw();
+            }
+        }
+
+        // 3. Grünes Band / Cap (Forest Green: 34, 139, 34) am Ausgang
+        int capHeight = 16;
+        float capY = isTop ? (y + height - capHeight) : y;
+        Rectangle cap = new Rectangle(x - 3, capY, width + 6, capHeight, new de.ur.mi.oop.colors.Color(34, 139, 34));
+        cap.setBorder(Colors.BLACK, 2);
+        cap.draw();
+
+        // 4. Goldenes Band auf dem grünen Band (Gold: 218, 165, 32)
+        float goldY = isTop ? (capY + 6) : (capY + 6);
+        Rectangle goldBand = new Rectangle(x - 3, goldY, width + 6, 4, new de.ur.mi.oop.colors.Color(218, 165, 32));
+        goldBand.draw();
+
+        // 5. Schwarze Umrandung um das ganze Hindernis für Schärfe
+        Rectangle outline = new Rectangle(x, y, width, height, Colors.TRANSPARENT);
+        outline.setBorder(Colors.BLACK, 3);
+        outline.draw();
     }
 
     public float getX() {
